@@ -2,22 +2,25 @@ import "./photoCard.css";
 
 type PhotoProps = {
   photo: {
+    id: string;
+    owner: string;
     title: string;
-    author: string;
-    imageUrl: string;
-    // handleFavourite: () => void;
+    server: string;
+    secret: string;
   };
 };
 
 const PhotoCard = ({ photo }: PhotoProps) => {
+  const imgSrc = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
+
   return (
     <div className="photo-card">
-      <img src={photo.imageUrl} alt="random img" />
+      <img src={imgSrc} alt={photo.title} />
       <div className="info">
         <div className="details">
           <h1>{photo.title}</h1>
           <div className="dash"></div>
-          <h2>{photo.author}</h2>
+          <h2>{photo.owner}</h2>
         </div>
         <button>Favourite</button>
       </div>
