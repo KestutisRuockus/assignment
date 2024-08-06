@@ -10,6 +10,7 @@ type PhotoProps = {
   };
 };
 
+// single photo component
 const PhotoCard = ({ photo }: PhotoProps) => {
   const imgSrc = `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg`;
 

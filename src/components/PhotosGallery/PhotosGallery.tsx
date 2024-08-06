@@ -11,6 +11,7 @@ type PhotosProps = {
   }[];
 };
 
+// container to store all photos components
 const PhotosGallery = ({ photos }: PhotosProps) => {
   return (
     <div className="photo-gallery">
