@@ -11,7 +11,10 @@ type PhotosProps = {
   }[];
 };
 
-// container to store all photos components
+// container to store all photos
+// @param {Object} props - The props object.
+// @param {Array} props.photos - The list of items.
+// @retuns {JSX.Element} - Infinite scroll Component that contains all fetched PhotoCard components.
 const PhotosGallery = ({ photos }: PhotosProps) => {
   return (
     <div className="photo-gallery">

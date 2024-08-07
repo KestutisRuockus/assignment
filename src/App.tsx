@@ -14,6 +14,11 @@ type LoadedItemsProps = {
 }[];
 
 function App() {
+  // create key in localStorage if it does not exist
+  const checkLocalStorage = localStorage.getItem("flickr-favourites");
+  if (checkLocalStorage === null || checkLocalStorage === "")
+    localStorage.setItem("flickr-favourites", JSON.stringify([]));
+
   const [newItemsToLoad, setNewItemsToLoad] = useState<NewItemsToLoadProps>([]);
   const [loadedItems, setLoadedItems] = useState<LoadedItemsProps>([]);
   const [page, setPage] = useState<number>(1);
