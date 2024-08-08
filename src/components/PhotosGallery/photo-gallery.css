@@ -1,5 +1,5 @@
 .photo-gallery {
-  width: fit-content;
+  width: 100%;
   margin: auto;
   display: grid;
   gap: 1.5rem;

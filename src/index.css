@@ -2,6 +2,8 @@
 
 :root {
   --bg-color: #e6e6e6;
+  --shadow-color: #d2d4d3;
+  font-size: 16px;
 }
 
 * {
@@ -15,4 +17,10 @@ body {
   margin: auto;
   background-color: var(--bg-color);
   padding: 20px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
 }

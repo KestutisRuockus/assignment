@@ -32,7 +32,7 @@ function App() {
     fetch(
       `https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${
         import.meta.env.VITE_API_KEY
-      }&format=json&nojsoncallback=1&page=${page}&per_page=10`
+      }&format=json&nojsoncallback=1&page=${page}&per_page=5`
     )
       .then((response) => response.json())
       .then((data) => {
