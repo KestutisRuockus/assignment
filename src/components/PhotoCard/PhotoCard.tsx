@@ -23,6 +23,8 @@ const PhotoCard = ({ photo }: PhotoProps) => {
   const [isPhotoInFavourite, setIsPhotoInFavourite] = useState<boolean | null>(
     null
   );
+  // boolean property to determine if photo is loaded
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // check if photo exist in favourite list on component mount
   useEffect(() => {
@@ -31,10 +33,13 @@ const PhotoCard = ({ photo }: PhotoProps) => {
 
   return (
     <div className="photo-card">
+      <div className="loading-message loading-message-animation">
+        {isLoading ? "Loading..." : ""}
+      </div>
       <img
+        className="image-loading-animation"
         alt={photo.title}
         loading="lazy"
-        // sizes="100vw"
         src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
         srcSet={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg 320w, 
                 https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg 768w,
@@ -42,7 +47,9 @@ const PhotoCard = ({ photo }: PhotoProps) => {
                 https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg 1280w,
                 https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg 1440w,
                 `}
+        onLoad={() => setIsLoading(false)}
       />
+
       <div className="info">
         <div className="details">
           <h1>{photo.title}</h1>
