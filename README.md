@@ -6,26 +6,26 @@
 
 ## Installation
 
-### · step 1: Clone the repository or use attached project folder
+#### · step 1: Clone the repository or use attached project folder
 
-### · step 2: Navigate to the project directory:
+#### · step 2: Navigate to the project directory:
 
-### cd your_project_app
+##### cd your_project_app
 
-### · step 3: Install dependencies:
+#### · step 3: Install dependencies:
 
-#### npm install
+##### npm install
 
 ## Configuration
 
-### · step 1: Sign up at Flickr (https://www.flickr.com/services/developer/api/) to get an API key.
+#### · step 1: Sign up at [Flickr](https://www.flickr.com/services/developer/api/) to get an API key.
 
-### · step 2: Create API KEY variable:
+#### · step 2: Create API KEY variable:
 
-#### Create .env file in main folder.
+##### Create .env file in main folder.
 
-#### In '.env' file declare a variable: VITE_API_KEY = your_api
+##### In '.env' file declare a variable: VITE_API_KEY = your_api
 
 ## Start the development server:
 
-### npm run dev
+#### npm run dev

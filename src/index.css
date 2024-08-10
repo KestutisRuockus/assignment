@@ -2,7 +2,10 @@
 
 :root {
   --bg-color: #e6e6e6;
+  --bg-color-dark: #636262;
   --shadow-color: #d2d4d3;
+  --modal-primary-text: #663399;
+  --modal-secondary-text: #5f9ea0;
   font-size: 16px;
 }
 

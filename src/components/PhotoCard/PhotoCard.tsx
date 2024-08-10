@@ -6,33 +6,57 @@ import {
 } from "../../utils/HandlePhotoFavouriteStatus";
 
 type PhotoProps = {
-  photo: {
-    id: string;
-    owner: string;
-    title: string;
-    server: string;
-    secret: string;
-  };
+  photoId: string;
+  ownerId: string;
+  realname?: string;
+  username?: string;
+  title: string;
+  server: string;
+  secret: string;
+};
+
+type ModalWindowProps = {
+  photoId: string;
+  ownerId: string;
+  realname?: string;
+  username?: string;
+  server: string;
+  secret: string;
+  title: string;
+} | null;
+
+type PhotoCardProps = {
+  photo: PhotoProps;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setModalWindowDetails: React.Dispatch<React.SetStateAction<ModalWindowProps>>;
 };
 
 // single photo component
 // @param photo - single photo object
 // @returns Single photo component
-const PhotoCard = ({ photo }: PhotoProps) => {
-  // boolean property to determine if photo is saved in local storage
+const PhotoCard = ({
+  photo,
+  setIsModalOpen,
+  setModalWindowDetails,
+}: PhotoCardProps) => {
   const [isPhotoInFavourite, setIsPhotoInFavourite] = useState<boolean | null>(
     null
   );
-  // boolean property to determine if photo is loaded
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // check if photo exist in favourite list on component mount
   useEffect(() => {
-    setIsPhotoInFavourite(checkOrPhotoIsInFavouriteList(photo.id));
+    setIsPhotoInFavourite(checkOrPhotoIsInFavouriteList(photo.photoId));
   }, []);
 
   return (
-    <div className="photo-card">
+    <div
+      onClick={() => {
+        setModalWindowDetails(photo);
+        setIsModalOpen(true);
+      }}
+      className="photo-card"
+    >
       <div className="loading-message loading-message-animation">
         {isLoading ? "Loading..." : ""}
       </div>
@@ -40,12 +64,12 @@ const PhotoCard = ({ photo }: PhotoProps) => {
         className="image-loading-animation"
         alt={photo.title}
         loading="lazy"
-        src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
-        srcSet={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg 320w, 
-                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg 768w,
-                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg 1024w,
-                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg 1280w,
-                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg 1440w,
+        src={`https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}.jpg`}
+        srcSet={`https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_m.jpg 320w, 
+                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_n.jpg 768w,
+                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_w.jpg 1024w,
+                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}.jpg 1280w,
+                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_c.jpg 1440w,
                 `}
         onLoad={() => setIsLoading(false)}
       />
@@ -54,13 +78,14 @@ const PhotoCard = ({ photo }: PhotoProps) => {
         <div className="details">
           <h1>{photo.title}</h1>
           <div className="dash"></div>
-          <h2>{photo.owner}</h2>
+          <h2>{photo.realname}</h2>
         </div>
         <button
           type="button"
-          onClick={() =>
-            toggleFavourite(photo, setIsPhotoInFavourite, isPhotoInFavourite)
-          }
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleFavourite(photo, setIsPhotoInFavourite, isPhotoInFavourite);
+          }}
         >
           {isPhotoInFavourite ? "Remove From Favourites" : "Favourite"}
         </button>

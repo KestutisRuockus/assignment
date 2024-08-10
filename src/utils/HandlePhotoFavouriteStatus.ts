@@ -9,16 +9,20 @@
 import { Dispatch, SetStateAction } from "react";
 
 type ItemsListProps = {
-  id: string;
-  owner: string;
+  photoId: string;
+  ownerId: string;
+  realname?: string;
+  username?: string;
   title: string;
   server: string;
   secret: string;
 }[];
 
 type SingleItemProps = {
-  id: string;
-  owner: string;
+  photoId: string;
+  ownerId: string;
+  realname?: string;
+  username?: string;
   title: string;
   server: string;
   secret: string;
@@ -39,7 +43,9 @@ export const toggleFavourite = (
 
   // IF photo exist in favourite list then filter(delete it from list) and save. ELSE concatenation of favourite list and new item, then save
   if (isPhotoInFavourite) {
-    updatedList = favouriteList.filter((item) => item.id !== photo.id);
+    updatedList = favouriteList.filter(
+      (item) => item.photoId !== photo.photoId
+    );
     saveToFavouritesList(updatedList);
     return setIsPhotoInFavourite(false);
   } else {
@@ -56,7 +62,7 @@ export const checkOrPhotoIsInFavouriteList = (id: string): boolean => {
   const favouriteList: ItemsListProps = JSON.parse(
     localStorage.getItem("flickr-favourites") || ""
   );
-  return favouriteList.some((item) => item.id === id);
+  return favouriteList.some((item) => item.photoId === id);
 };
 
 // get favourite list from local storage
