@@ -1,9 +1,30 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import "./navbar.css";
+import { getFavouriteList } from "../../utils/HandlePhotoFavouriteStatus";
 
-const Navbar = () => {
+type LoadedItemsProps = {
+  id: string;
+  ownerId: string;
+}[];
+
+type NavbarProps = {
+  setNewItemsToLoad: Dispatch<SetStateAction<LoadedItemsProps>>;
+  setIsFavouriteListRendered: Dispatch<SetStateAction<boolean>>;
+  isFavouriteListRendered: boolean;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
+  setApiMethod: Dispatch<SetStateAction<"getRecent" | "search">>;
+};
+
+const Navbar = ({
+  setNewItemsToLoad,
+  setIsFavouriteListRendered,
+  isFavouriteListRendered,
+  setSearchQuery,
+  setApiMethod,
+}: NavbarProps) => {
   const [navOpacity, setNavOpacity] = useState<string>("1");
-  const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(true);
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
+  const [inputText, setInputText] = useState<string>("");
 
   useEffect(() => {
     document.body.style.overflowY = isHamburgerOpen ? "hidden" : "unset";
@@ -30,6 +51,27 @@ const Navbar = () => {
     setIsHamburgerOpen(!isHamburgerOpen);
   };
 
+  const loadFavouritePhotos = () => {
+    if (!isFavouriteListRendered) {
+      const favouriteArray = getFavouriteList();
+      setNewItemsToLoad(favouriteArray);
+      setIsFavouriteListRendered(true);
+    }
+  };
+
+  const handleSearchQuery = (): void => {
+    setSearchQuery(`&text=${inputText}`);
+    setInputText("");
+    setApiMethod("search");
+    setIsFavouriteListRendered(false);
+  };
+
+  const loadMainPage = (): void => {
+    setApiMethod("getRecent");
+    setSearchQuery("");
+    setIsFavouriteListRendered(false);
+  };
+
   return (
     <nav
       onMouseEnter={handleMouseEnter}
@@ -37,8 +79,18 @@ const Navbar = () => {
       style={{ opacity: navOpacity }}
       className="navbar"
     >
+      <div className="search">
+        <input
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          type="text"
+          placeholder="Search..."
+        />
+        <button onClick={handleSearchQuery}>Search</button>
+      </div>
       <ul style={{ top: isHamburgerOpen ? "0" : "-200px" }}>
-        <li>My Favourite List</li>
+        <li onClick={loadMainPage}>HOME</li>
+        <li onClick={loadFavouritePhotos}>My Favourite List</li>
       </ul>
       <svg
         onClick={handleHamburgerButton}

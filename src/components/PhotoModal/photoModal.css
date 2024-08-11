@@ -1,9 +1,3 @@
-.modal-container-bg {
-  width: 97vw;
-  height: 100vh;
-  background-color: var(--bg-color-dark);
-}
-
 .modal-container {
   width: 80%;
   min-height: 80%;
@@ -18,6 +12,7 @@
   transform: translate(-50%, -50%);
   border-radius: 10px;
   margin: 20px;
+  background-color: white;
 }
 
 .modal {

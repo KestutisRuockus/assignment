@@ -71,7 +71,7 @@ h2 {
   -webkit-box-orient: vertical;
 }
 
-button {
+.photo-card button {
   background-color: transparent;
   margin: 15px 0;
   color: white;
@@ -84,7 +84,7 @@ button {
   transition: all 0.5s;
 }
 
-button:hover {
+.photo-card button:hover {
   border-color: rgba(255, 255, 255, 1);
   background-color: rgba(63, 54, 54, 1);
 }
@@ -127,13 +127,13 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-  .photo-card button {
+  .photo-card .photo-card button {
     margin-top: 0;
   }
 }
 
 @media (max-width: 425px) {
-  .photo-card button {
+  .photo-card .photo-card button {
     margin-top: 0;
     margin-bottom: 8px;
     padding: 4px 8px;

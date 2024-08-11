@@ -6,7 +6,7 @@ import {
 } from "../../utils/HandlePhotoFavouriteStatus";
 
 type PhotoProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   realname?: string;
   username?: string;
@@ -16,7 +16,7 @@ type PhotoProps = {
 };
 
 type ModalWindowProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   realname?: string;
   username?: string;
@@ -46,7 +46,7 @@ const PhotoCard = ({
 
   // check if photo exist in favourite list on component mount
   useEffect(() => {
-    setIsPhotoInFavourite(checkOrPhotoIsInFavouriteList(photo.photoId));
+    setIsPhotoInFavourite(checkOrPhotoIsInFavouriteList(photo.id));
   }, []);
 
   return (
@@ -64,12 +64,12 @@ const PhotoCard = ({
         className="image-loading-animation"
         alt={photo.title}
         loading="lazy"
-        src={`https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}.jpg`}
-        srcSet={`https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_m.jpg 320w, 
-                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_n.jpg 768w,
-                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_w.jpg 1024w,
-                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}.jpg 1280w,
-                https://live.staticflickr.com/${photo.server}/${photo.photoId}_${photo.secret}_c.jpg 1440w,
+        src={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
+        srcSet={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_m.jpg 320w, 
+                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_n.jpg 768w,
+                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_w.jpg 1024w,
+                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg 1280w,
+                https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg 1440w,
                 `}
         onLoad={() => setIsLoading(false)}
       />
@@ -81,6 +81,7 @@ const PhotoCard = ({
           <h2>{photo.realname}</h2>
         </div>
         <button
+          className="btn"
           type="button"
           onClick={(e) => {
             e.stopPropagation();

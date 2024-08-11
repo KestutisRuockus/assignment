@@ -6,14 +6,24 @@ type NewItemsToLoadProps = {
   id: string;
   ownerId: string;
 }[];
+
 type LoadedItemsProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   server: string;
   secret: string;
   title: string;
   realname: string;
 }[];
+
+type FetchDataSingleItemProps = {
+  id: string;
+  ownerId: string;
+  server: string;
+  secret: string;
+  title: string;
+  realname: string;
+};
 
 function App() {
   // create key in localStorage if it does not exist
@@ -25,35 +35,42 @@ function App() {
   const [loadedItems, setLoadedItems] = useState<LoadedItemsProps>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isFavouriteListRendered, setIsFavouriteListRendered] =
+    useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [apiMethod, setApiMethod] = useState<"getRecent" | "search">(
+    "getRecent"
+  );
+
+  // when favourite photos list loaded clear variables
+  useEffect(() => {
+    setPage(1);
+    setLoadedItems([]);
+  }, [isFavouriteListRendered, searchQuery]);
 
   const bottomOfScreenRef = useRef<HTMLDivElement>(null);
 
-  // on page mount fetch photos info. Or when user scroll to botton of screen fetch photos info from next page;
+  // on page mount or when user scroll to botton of screen fetch photos info from next page;
   useEffect(() => {
-    setLoading(true);
-    fetch(
-      `https://www.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${
-        import.meta.env.VITE_API_KEY
-      }&format=json&nojsoncallback=1&page=${page}&per_page=2`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const list = data.photos.photo.map(
-          (item: {
-            id: string;
-            ownerId: string;
-            server: string;
-            secret: string;
-            title: string;
-            realname: string;
-          }) => {
-            const { id, ownerId, title, server, secret, realname } = item;
-            return { id, ownerId, title, server, secret, realname };
-          }
-        );
-        setNewItemsToLoad(list);
-        setLoading(false);
-      });
+    if (!isFavouriteListRendered) {
+      setLoading(true);
+      fetch(
+        `https://www.flickr.com/services/rest/?method=flickr.photos.${apiMethod}&api_key=${
+          import.meta.env.VITE_API_KEY
+        }${searchQuery}&format=json&nojsoncallback=1&page=${page}&per_page=2`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          const list = data.photos.photo.map(
+            (item: FetchDataSingleItemProps) => {
+              const { id, ownerId, title, server, secret, realname } = item;
+              return { id, ownerId, title, server, secret, realname };
+            }
+          );
+          setNewItemsToLoad(list);
+          setLoading(false);
+        });
+    }
   }, [page]);
 
   // fetch new photos info for image rendering;
@@ -68,7 +85,7 @@ function App() {
 
         const result = await response.json();
         const newItem = {
-          photoId: result.photo.id,
+          id: result.photo.id,
           ownerId: result.photo.owner.nsid,
           realname: result.photo.owner.realname,
           title: result.photo.title._content,
@@ -82,7 +99,7 @@ function App() {
     fetchNewItems();
   }, [newItemsToLoad]);
 
-  // Observ or bottom of screen was reached, when reached fetch new photos info;
+  // Observe or bottom of screen was reached, when reached fetch new photos info;
   useEffect(() => {
     const options = {
       root: null,
@@ -109,9 +126,18 @@ function App() {
 
   return (
     <div>
-      <Navbar />
-      <PhotosGallery photos={loadedItems} />
-      {/* <PhotoModal /> */}
+      <Navbar
+        setNewItemsToLoad={setNewItemsToLoad}
+        setIsFavouriteListRendered={setIsFavouriteListRendered}
+        isFavouriteListRendered={isFavouriteListRendered}
+        setSearchQuery={setSearchQuery}
+        setApiMethod={setApiMethod}
+      />
+      {loadedItems.length === 0 && isFavouriteListRendered ? (
+        <div className="favorite-list-empty">Your Favorite List is empty.</div>
+      ) : (
+        <PhotosGallery photos={loadedItems} />
+      )}
 
       {/* If new photos are loading display this message */}
       {loading && <div>Loading...</div>}

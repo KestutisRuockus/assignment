@@ -1,5 +1,5 @@
 /**
- * This file manages the status of photos in the Favorites List.
+ * This file manages the status of photos in the Favourite List.
  *
  * It provides functions to:
  * - Save a photo to `localStorage`.
@@ -9,7 +9,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 type ItemsListProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   realname?: string;
   username?: string;
@@ -19,7 +19,7 @@ type ItemsListProps = {
 }[];
 
 type SingleItemProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   realname?: string;
   username?: string;
@@ -43,9 +43,7 @@ export const toggleFavourite = (
 
   // IF photo exist in favourite list then filter(delete it from list) and save. ELSE concatenation of favourite list and new item, then save
   if (isPhotoInFavourite) {
-    updatedList = favouriteList.filter(
-      (item) => item.photoId !== photo.photoId
-    );
+    updatedList = favouriteList.filter((item) => item.id !== photo.id);
     saveToFavouritesList(updatedList);
     return setIsPhotoInFavourite(false);
   } else {
@@ -62,12 +60,12 @@ export const checkOrPhotoIsInFavouriteList = (id: string): boolean => {
   const favouriteList: ItemsListProps = JSON.parse(
     localStorage.getItem("flickr-favourites") || ""
   );
-  return favouriteList.some((item) => item.photoId === id);
+  return favouriteList.some((item) => item.id === id);
 };
 
 // get favourite list from local storage
 // @returns favourite list from local storage. Or empty array if local storage does not contain favourite list. 0 length array.
-const getFavouriteList = (): ItemsListProps => {
+export const getFavouriteList = (): ItemsListProps => {
   return JSON.parse(localStorage.getItem("flickr-favourites") || "");
 };
 

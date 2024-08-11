@@ -5,7 +5,7 @@ import PhotoModal from "../PhotoModal/PhotoModal";
 
 type PhotosProps = {
   photos: {
-    photoId: string;
+    id: string;
     ownerId: string;
     realname?: string;
     username?: string;
@@ -16,7 +16,7 @@ type PhotosProps = {
 };
 
 type ModalWindowProps = {
-  photoId: string;
+  id: string;
   ownerId: string;
   realname?: string;
   username?: string;

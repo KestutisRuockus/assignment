@@ -24,8 +24,30 @@
 
 ##### Create .env file in main folder.
 
-##### In '.env' file declare a variable: VITE_API_KEY = your_api
+##### In the '.env' file, declare a variable: 'VITE_API_KEY=your_api'.
 
 ## Start the development server:
 
 #### npm run dev
+
+## Bonus(optional) section
+
+#### · Clicking on the rendered photo opens a modal window.
+
+#### · In the modal window, clicking on the photo opens a new tab with the photo displayed at full width.
+
+#### · Navbar component has been created.
+
+#### · 'My Favourite List' button to retrieve and display the user's favourite list.
+
+#### · 'Home' button loads the main page.
+
+#### · 'Search' input fetches data based on the query entered in the input field.
+
+## Ideas for Expansion
+
+#### · In the modal window, display comments for the photo below the photo and user details using the [flickr.photos.comments.getList method](https://www.flickr.com/services/api/flickr.photos.comments.getList.html)
+
+#### · Clicking on the user details element fetches the current author's photo sets using the [flickr.photosets.getList method](https://www.flickr.com/services/api/flickr.photosets.getList.html)
+
+#### · The sort functionality for the search method includes an optional argument to sort the data. [flickr.photos.search method, argument - sort](https://www.flickr.com/services/api/flickr.photos.search.html)
