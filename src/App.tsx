@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import PhotosGallery from "./components/PhotosGallery/PhotosGallery";
+import Navbar from "./components/Navbar/Navbar";
 
 type NewItemsToLoadProps = {
   id: string;
@@ -108,6 +109,7 @@ function App() {
 
   return (
     <div>
+      <Navbar />
       <PhotosGallery photos={loadedItems} />
       {/* <PhotoModal /> */}
 

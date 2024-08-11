@@ -3,6 +3,7 @@
   margin: auto;
   display: grid;
   gap: 1.5rem;
+  padding: 20px;
 }
 
 @media (min-width: 320px) {

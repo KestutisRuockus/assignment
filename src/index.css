@@ -19,7 +19,6 @@
 body {
   margin: auto;
   background-color: var(--bg-color);
-  padding: 20px;
 }
 
 @media (max-width: 768px) {
