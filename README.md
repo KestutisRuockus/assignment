@@ -51,3 +51,5 @@
 #### · Clicking on the user details element fetches the current author's photo sets using the [flickr.photosets.getList method](https://www.flickr.com/services/api/flickr.photosets.getList.html)
 
 #### · The sort functionality for the search method includes an optional argument to sort the data. [flickr.photos.search method, argument - sort](https://www.flickr.com/services/api/flickr.photos.search.html)
+
+#### · Remove photo immediately from the Favourites list without refreshing the page.
