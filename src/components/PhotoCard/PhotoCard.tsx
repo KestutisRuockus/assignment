@@ -39,8 +39,8 @@ const PhotoCard = ({
   setIsModalOpen,
   setModalWindowDetails,
 }: PhotoCardProps) => {
-  const [isPhotoInFavourite, setIsPhotoInFavourite] = useState<boolean | null>(
-    null
+  const [isPhotoInFavourite, setIsPhotoInFavourite] = useState<boolean | false>(
+    false
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

@@ -57,7 +57,7 @@ function App() {
       fetch(
         `https://www.flickr.com/services/rest/?method=flickr.photos.${apiMethod}&api_key=${
           import.meta.env.VITE_API_KEY
-        }${searchQuery}&format=json&nojsoncallback=1&page=${page}&per_page=2`
+        }${searchQuery}&format=json&nojsoncallback=1&page=${page}&per_page=10`
       )
         .then((response) => response.json())
         .then((data) => {

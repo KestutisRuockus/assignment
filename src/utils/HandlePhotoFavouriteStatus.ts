@@ -33,8 +33,8 @@ type SingleItemProps = {
 // @returns boolean value
 export const toggleFavourite = (
   photo: SingleItemProps,
-  setIsPhotoInFavourite: Dispatch<SetStateAction<boolean | null>>,
-  isPhotoInFavourite: boolean | null
+  setIsPhotoInFavourite: Dispatch<SetStateAction<boolean | false>>,
+  isPhotoInFavourite: boolean | false
 ): void => {
   setIsPhotoInFavourite(!isPhotoInFavourite);
 
